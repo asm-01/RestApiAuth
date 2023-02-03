@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\VerifyEmailController;
+use App\Http\Controllers\Api\PassHandlingController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,4 +22,16 @@ Route::controller(AuthenticationController::class)->group(function () {
     Route::post('/login','login');
     Route::post('/logout','logout');
     Route::post('/refresh','refresh');
+});
+
+Route::controller(VerifyEmailController::class)->group(function (){
+    Route::post('/email/verify', 'verify');
+    Route::post('/email/verification-notification', 'notification');
+});
+
+Route::controller(PassHandlingController::class)->group(function (){
+    Route::post('/forgot','forgot');
+    Route::post('/reset','reset');
+    Route::post('/update','update');
+    Route::post('/confirm','confirm');
 });
