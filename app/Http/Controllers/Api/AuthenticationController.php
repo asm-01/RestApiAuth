@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,8 @@ class AuthenticationController extends Controller
               'email' => $request->email,
               'password' => Hash::make($request->password)
           ]);
+        
+        event(new Registered($user));
 
         $token = Auth::login($user);
 
